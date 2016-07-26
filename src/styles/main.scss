@@ -1,5 +1,11 @@
-$primary: #aa2941;
+$primary: rgb(100, 190, 190);
 
-.name {
-  color: $primary;
+.counter {
+  background-color: $primary;
+  padding: 20px;
+}
+
+.svg-icon {
+  display: inline-block;
+  width: 18px;
 }
