@@ -26,11 +26,6 @@ module.exports = {
         test: /\.scss$/i,
         loader: extractCSS.extract(['css','sass']),
       },
-      {
-        test: /\.js$/,
-        loaders: ['babel'],
-        include: sharedConfig.paths.src,
-      },
     ],
   },
 };

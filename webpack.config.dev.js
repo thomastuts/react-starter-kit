@@ -23,11 +23,6 @@ module.exports = {
           test: /\.scss$/,
           loaders: ['style', 'css', 'sass'],
         },
-        {
-          test: /\.js$/,
-          loaders: ['react-hot', 'babel'],
-          include: sharedConfig.paths.src,
-        },
       ],
   },
   devServer: {

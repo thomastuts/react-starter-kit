@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -7,6 +8,10 @@ const PATHS = {
   config: path.join(__dirname, 'config'),
   dist: './dist',
 };
+
+const BABEL_SETTINGS = JSON.parse(fs.readFileSync(path.join(PATHS.config, '.babelrc'), 'utf8'));
+const ENV = process.env.NODE_ENV;
+const BABEL_LOADER_NAME_WITH_SETTINGS = `babel?${JSON.stringify(BABEL_SETTINGS)}`;
 
 module.exports = {
   eslint: {
@@ -37,6 +42,11 @@ module.exports = {
         {
           test: /\.svg$/,
           loader: 'svg-inline'
+        },
+        {
+          test: /\.js$/,
+          loaders: ENV === 'development' ? ['react-hot', BABEL_LOADER_NAME_WITH_SETTINGS] : [BABEL_LOADER_NAME_WITH_SETTINGS],
+          include: PATHS.src,
         },
       ],
   },
