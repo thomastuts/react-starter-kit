@@ -1,39 +1,34 @@
 const path = require('path');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const extractCSS = new ExtractTextPlugin('stylesheets/[name].css');
+const sharedConfig = require('./webpack.config.shared');
 
 module.exports = {
   devtool: 'source-map',
-  entry: ['./src/index'],
-  output: {
-    path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js'
-  },
+  entry: [...sharedConfig.entry],
+  output: sharedConfig.output,
   plugins: [
+    ...sharedConfig.plugins,
     new webpack.optimize.UglifyJsPlugin({
       compressor: {
         warnings: false,
       },
     }),
     new webpack.optimize.OccurrenceOrderPlugin(),
-    new HtmlWebpackPlugin({
-      template: './src/index.html'
-    }),
     extractCSS,
   ],
   module: {
     loaders: [
-      { test: /\.scss$/i, loader: extractCSS.extract(['css','sass']) },
+      ...sharedConfig.module.loaders,
       {
-        test: /\.svg$/,
-        loader: 'svg-inline'
+        test: /\.scss$/i,
+        loader: extractCSS.extract(['css','sass']),
       },
       {
         test: /\.js$/,
         loaders: ['babel'],
-        include: path.join(__dirname, 'src'),
+        include: sharedConfig.paths.src,
       },
     ],
   },

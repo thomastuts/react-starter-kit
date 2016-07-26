@@ -1,43 +1,35 @@
 const path = require('path');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const sharedConfig = require('./webpack.config.shared');
 
 module.exports = {
   devtool: 'cheap-eval-source-map',
   entry: [
     'webpack-dev-server/client?http://localhost:8080',
     'webpack/hot/dev-server',
-    './src/index.js',
+    ...sharedConfig.entry,
   ],
-  output: {
-    path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js',
-  },
+  output: sharedConfig.output,
   plugins: [
+    ...sharedConfig.plugins,
     new webpack.HotModuleReplacementPlugin(),
-    new HtmlWebpackPlugin({
-      template: './src/index.html',
-    }),
   ],
   module: {
       loaders: [
+        ...sharedConfig.module.loaders,
         {
           test: /\.scss$/,
           loaders: ['style', 'css', 'sass'],
         },
         {
-          test: /\.svg$/,
-          loader: 'svg-inline'
-        },
-        {
           test: /\.js$/,
           loaders: ['react-hot', 'babel'],
-          include: path.join(__dirname, 'src'),
+          include: sharedConfig.paths.src,
         },
       ],
   },
   devServer: {
-    contentBase: './dist',
+    contentBase: sharedConfig.paths.dist,
     hot: true,
   }
 };
