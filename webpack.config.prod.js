@@ -5,6 +5,7 @@ const extractCSS = new ExtractTextPlugin('stylesheets/[name].css');
 const sharedConfig = require('./webpack.config.shared');
 
 module.exports = {
+  eslint: sharedConfig.eslint,
   devtool: 'source-map',
   entry: [...sharedConfig.entry],
   output: sharedConfig.output,
