@@ -14,7 +14,7 @@ export default class Counter extends React.Component {
 
   componentDidMount() {
     setInterval(
-      () => this.setState({secondsSinceMount: this.state.secondsSinceMount + 1}),
+      () => this.setState({ secondsSinceMount: this.state.secondsSinceMount + 1 }),
       1000
     );
   }
@@ -23,8 +23,8 @@ export default class Counter extends React.Component {
     return (
       <div>
         <p className="counter">
-          I have been mounted for <CounterTime timeInSeconds={this.state.secondsSinceMount} /> seconds. Go ahead and
-          change my code, the counter will keep going!
+          I have been mounted for <CounterTime timeInSeconds={this.state.secondsSinceMount} />
+          &nbsp;seconds. Go ahead and change my code, the counter will keep going!
         </p>
         <Icon name="aperture" />
       </div>

@@ -15,6 +15,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
   ],
   module: {
+      preLoaders: sharedConfig.module.preLoaders,
       loaders: [
         ...sharedConfig.module.loaders,
         {
